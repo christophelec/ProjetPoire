@@ -11,5 +11,3 @@ Functionalities:
 * Change the skin of the app!
 * Export to anything you want, as long as you want a .txt!
 * Change the style of your text!
-
-test
