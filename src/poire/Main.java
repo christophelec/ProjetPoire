@@ -1,4 +1,4 @@
-package Poire;
+package poire;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
