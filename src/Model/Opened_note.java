@@ -10,7 +10,7 @@ import java.io.Serializable;
  * serialized in the same file, but they do not contain text)
  */
 public class Opened_note implements Serializable {
-    Note note;
+    transient Note note;
     boolean change_saved;
     String text;
 
@@ -30,6 +30,10 @@ public class Opened_note implements Serializable {
 
     public Note get_note() {
         return note;
+    }
+
+    public void set_note(Note n_note) {
+        note = n_note;
     }
 
     public String get_text() {

@@ -57,12 +57,32 @@ public class NoteSorter implements INoteSorter {
         public int compare(Note o1, Note o2) {
             return o1.get_title().compareTo(o2.get_title());
         }
+
+        @Override
+        public Comparator<Note> reversed() {
+            return new Comparator<Note>() {
+                @Override
+                public int compare(Note o1, Note o2) {
+                    return o2.get_title().compareTo(o1.get_title());
+                }
+            };
+        }
     }
 
     private class CompareDate implements Comparator<Note> {
         @Override
         public int compare(Note o1, Note o2) {
             return Long.compare(o1.get_last_modified(), o2.get_last_modified());
+        }
+
+        @Override
+        public Comparator<Note> reversed() {
+            return new Comparator<Note>() {
+                @Override
+                public int compare(Note o1, Note o2) {
+                    return Long.compare(o2.get_last_modified(), o1.get_last_modified());
+                }
+            };
         }
     }
 }
