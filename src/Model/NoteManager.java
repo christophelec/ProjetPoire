@@ -13,22 +13,22 @@ import java.util.prefs.Preferences;
 
 public class NoteManager {
     private static java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(NoteFileManipulator.class.getPackage().getName());
-
+    Preferences _pref;
     private List<Note> _notes;
     private INoteSorter _sorter;
     private INoteFileManipulator _manipulator;
 //TODO: INoteExporter
 
     public NoteManager() {
-        Preferences pref = Preferences.userRoot().node(this.getClass().getName());
+        _pref = Preferences.userRoot().node(this.getClass().getName());
         _sorter = new NoteSorter();
         _manipulator = new NoteFileManipulator();
 
-        _notes = _manipulator.extract_note_list(pref.get("note_list_path", "./.poire_note_list"));
+        _notes = _manipulator.extract_note_list(_pref.get("note_list_path", "./.poire_note_list"));
         if (_notes == null) {
             _notes = new ArrayList<>();
-            if (!_manipulator.save_changes_note_list(pref.get("note_list_path", "./.poire_note_list"), _notes))
-                throw new RuntimeException("Could not create the list of notes in " + pref.get("note_list_path", "./"));
+            if (!save_changes())
+                throw new RuntimeException("Could not create the list of notes in " + _pref.get("note_list_path", "./poire_note_list"));
         }
     }
 
@@ -72,11 +72,17 @@ public class NoteManager {
         return (note.is_saved());
     }
 
+    public boolean save_changes() {
+        return _manipulator.save_changes_note_list(_pref.get("note_list_path", "./.poire_note_list"), _notes);
+    }
+
     public Opened_note create_note() {
         Opened_note n_note = new Opened_note(new Note(generate_title()));
         if (!save_note(n_note))
             return null;
         _notes.add(n_note.get_note());
+        if (!save_changes())
+            throw new RuntimeException("Could not save the list of notes in " + _pref.get("note_list_path", "./poire_note_list"));
         return n_note;
     }
 
