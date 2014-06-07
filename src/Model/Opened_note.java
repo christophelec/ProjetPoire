@@ -14,7 +14,7 @@ public class Opened_note implements Serializable {
     boolean change_saved;
     String text;
 
-    Opened_note(Note n_note) {
+    public Opened_note(Note n_note) {
         note = n_note;
         change_saved = false;
         text = "";

@@ -24,10 +24,10 @@ public class NoteManager {
         _sorter = new NoteSorter();
         _manipulator = new NoteFileManipulator();
 
-        _notes = _manipulator.extract_note_list(pref.get("note_list_path", "./"));
+        _notes = _manipulator.extract_note_list(pref.get("note_list_path", "./.poire_note_list"));
         if (_notes == null) {
             _notes = new ArrayList<>();
-            if (!_manipulator.save_changes_note_list(pref.get("note_list_path", "./"), _notes))
+            if (!_manipulator.save_changes_note_list(pref.get("note_list_path", "./.poire_note_list"), _notes))
                 throw new RuntimeException("Could not create the list of notes in " + pref.get("note_list_path", "./"));
         }
     }
