@@ -64,4 +64,14 @@ public class Note implements Serializable {
     public void set_title(String n_title) {
         title = n_title;
     }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "tags=" + tags +
+                ", file_name='" + file_name + '\'' +
+                ", last_modified=" + last_modified +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }
